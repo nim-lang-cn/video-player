@@ -1,4 +1,4 @@
-import osproc, threadpool
+import osproc
 import nigui
 # First, import the library.
 
@@ -78,7 +78,8 @@ playButton.onClick = proc(event: ClickEvent) =
   dialog.run()
   if dialog.files.len > 0:
     for file in dialog.files:
-      spawn play(file)
+      var p = startProcess("ffplay -window_title Nim播放器 -autoexit -x 640 -y 320 -threads 2 " & file,options = {poEvalCommand})
+      defer:p.close
 
 
 
